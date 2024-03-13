@@ -14,8 +14,6 @@ if __name__ == "__main__":
         config = yaml.safe_load(f.read())
     logging.config.dictConfig(config)
 
-
-
     logger = logging.getLogger("classipy")
     logger.debug("Entrypoint...")
     parser = argparse.ArgumentParser("classipy")
@@ -26,12 +24,11 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     run = Wrappers(args)
-    
 
     logger.info("Running Kraken")
     if run.kraken2():
         logger.info("Kraken ran succesfully")
         logger.info("Running Krona")
-        
+
         if run.krona():
             logger.info("Krona ran succesfully")
