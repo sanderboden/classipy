@@ -6,9 +6,15 @@ from subprocess import Popen, PIPE
 
 
 class Wrappers:
+    """A collection of commandline wrappers"""
+
     l = getLogger("Wrappers")
 
     def __init__(self, args: Namespace):
+        """
+        Args:
+            args (Namespace): commandline arguments
+        """
         self.l.debug("Creating instance")
 
         self.fq: str = os.path.join(os.path.abspath(args.fastq), "*.fastq")
@@ -19,6 +25,11 @@ class Wrappers:
         self.t: int = args.threads
 
     def kraken2(self) -> bool:
+        """Run kraken2
+
+        Returns:
+            bool: True if exitcode = 0
+        """
         cmd = f"kraken2 --db {self.db} --threads {self.t} {self.fq}"
         self.l.debug(cmd)
         run = Popen(
@@ -40,6 +51,11 @@ class Wrappers:
             return False
 
     def krona(self) -> bool:
+        """Run krona
+
+        Returns:
+            bool: True if exitcode = 0
+        """
         cmd = f"ktImportTaxonomy -t 5 -m 3 -o {os.path.join(self.out, 'krona.html')} {self.krk_out}"
         self.l.debug(cmd)
         run = Popen(

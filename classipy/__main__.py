@@ -16,11 +16,29 @@ if __name__ == "__main__":
 
     logger = logging.getLogger("classipy")
     logger.debug("Entrypoint...")
-    parser = argparse.ArgumentParser("classipy")
-    parser.add_argument("fastq")
-    parser.add_argument("db")
-    parser.add_argument("outdir")
-    parser.add_argument("--threads", default=2)
+    parser = argparse.ArgumentParser(
+        "classipy",
+        epilog="Developed by Sander Boden. For issues, please refer to https://github.com/sanderboden/classipy/issues.",
+    )
+    parser.add_argument("fastq", help="path to directory containing fastq files.")
+    parser.add_argument("db", help="Path to krakendb directory.")
+    parser.add_argument(
+        "outdir", help="output directory. Will be created if it doesn't exist."
+    )
+    parser.add_argument(
+        "--threads",
+        default=2,
+        help="Maximum number of threads to use. (default: 2)",
+        type=int,
+        metavar="int",
+    )
+    parser.add_argument(
+        "--confidence",
+        default=0.0,
+        help="Confidence value for kraken2. (default 0.0)",
+        type=float,
+        metavar="float",
+    )
 
     args = parser.parse_args()
     run = Wrappers(args)
