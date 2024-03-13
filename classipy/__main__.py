@@ -26,4 +26,12 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     run = Wrappers(args)
-    run.kraken2()
+    
+
+    logger.info("Running Kraken")
+    if run.kraken2():
+        logger.info("Kraken ran succesfully")
+        logger.info("Running Krona")
+        
+        if run.krona():
+            logger.info("Krona ran succesfully")
